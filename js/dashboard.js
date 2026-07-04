@@ -2,8 +2,9 @@
 // DASHBOARD.JS - XREZZKY TOP UP
 // ============================================================
 
-import { getCurrentUser, logoutUser, updateProfile } from '../supabase/auth.js'
-import { getUserTransactions } from '../supabase/database.js'
+import { getCurrentUser, logoutUser, updateProfile, updatePassword } from '../supabase/auth.js'
+import { getUserTransactions, getUserStats } from '../supabase/database.js'
+import { uploadUserAvatar } from '../supabase/storage.js'
 
 // ===== DASHBOARD =====
 document.addEventListener('DOMContentLoaded', async () => {
@@ -15,6 +16,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     const user = userResult.user
+
+    // Kasih shortcut ke Admin Panel di nav buat user dengan role
+    // admin/super_admin (sebelumnya nav di halaman dashboard/riwayat/profil
+    // sama sekali tidak ada jalan pintas ke panel admin).
+    if (['admin', 'super_admin'].includes(user.role)) {
+        document.querySelectorAll('.nav-menu, .mobile-menu').forEach(menu => {
+            const link = document.createElement('a')
+            link.href = 'admin/index.html'
+            link.textContent = '⚙️ Admin Panel'
+            if (menu.tagName === 'UL') {
+                const li = document.createElement('li')
+                li.appendChild(link)
+                menu.appendChild(li)
+            } else {
+                menu.insertBefore(link, menu.querySelector('.nav-actions'))
+            }
+        })
+    }
 
     // Greeting
     const greeting = document.getElementById('userGreeting')
@@ -31,10 +50,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Profile Page
     if (window.location.pathname.includes('profile.html')) {
         loadProfile(user)
+        loadProfileStats(user.id)
     }
 
     // Logout
-    document.querySelectorAll('#logoutBtn, #logoutBtnMobile, #logoutNav, #logoutMobileNav').forEach(btn => {
+    document.querySelectorAll('#logoutBtn, #logoutBtnMobile, #logoutNav, #logoutMobileNav, #logoutBtnProfile').forEach(btn => {
         btn?.addEventListener('click', async (e) => {
             e.preventDefault()
             const result = await logoutUser()
@@ -49,6 +69,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (profileForm) {
         profileForm.addEventListener('submit', async (e) => {
             e.preventDefault()
+            const msg = document.getElementById('profileMsg')
             const updates = {
                 full_name: document.getElementById('fullname').value,
                 username: document.getElementById('username').value,
@@ -56,10 +77,66 @@ document.addEventListener('DOMContentLoaded', async () => {
                 address: document.getElementById('address').value
             }
             const result = await updateProfile(user.id, updates)
+            if (msg) {
+                msg.textContent = result.success ? 'Profil berhasil diperbarui ✓' : 'Gagal: ' + result.error
+                msg.className = 'form-msg ' + (result.success ? 'success' : 'error')
+            }
             if (result.success) {
-                alert('Profil berhasil diperbarui!')
+                document.getElementById('userName').textContent = updates.full_name || updates.username
+                document.getElementById('userUsername').textContent = '@' + updates.username
+            }
+        })
+    }
+
+    // Password Form
+    const passwordForm = document.getElementById('passwordForm')
+    if (passwordForm) {
+        passwordForm.addEventListener('submit', async (e) => {
+            e.preventDefault()
+            const msg = document.getElementById('passwordMsg')
+            const newPassword = document.getElementById('newPassword').value
+            const confirmPassword = document.getElementById('confirmPassword').value
+
+            if (newPassword !== confirmPassword) {
+                if (msg) {
+                    msg.textContent = 'Konfirmasi password tidak cocok'
+                    msg.className = 'form-msg error'
+                }
+                return
+            }
+
+            const result = await updatePassword(newPassword)
+            if (msg) {
+                msg.textContent = result.success ? 'Password berhasil diubah ✓' : 'Gagal: ' + result.error
+                msg.className = 'form-msg ' + (result.success ? 'success' : 'error')
+            }
+            if (result.success) passwordForm.reset()
+        })
+    }
+
+    // Avatar Upload
+    const avatarInput = document.getElementById('avatarInput')
+    if (avatarInput) {
+        avatarInput.addEventListener('change', async (e) => {
+            const file = e.target.files?.[0]
+            if (!file) return
+
+            const avatarEl = document.getElementById('userAvatar')
+            const originalContent = avatarEl.innerHTML
+            avatarEl.innerHTML = '⏳'
+
+            const uploadResult = await uploadUserAvatar(user.id, file)
+            if (uploadResult.success) {
+                const updateResult = await updateProfile(user.id, { avatar_url: uploadResult.data.url })
+                if (updateResult.success) {
+                    avatarEl.innerHTML = `<img src="${uploadResult.data.url}" alt="Avatar" />`
+                } else {
+                    avatarEl.innerHTML = originalContent
+                    alert('Gagal menyimpan foto profil: ' + updateResult.error)
+                }
             } else {
-                alert('Gagal memperbarui profil: ' + result.error)
+                avatarEl.innerHTML = originalContent
+                alert('Gagal upload foto: ' + uploadResult.error)
             }
         })
     }
@@ -134,6 +211,47 @@ function loadProfile(user) {
     document.getElementById('username').value = user.username || ''
     document.getElementById('phone').value = user.phone || ''
     document.getElementById('address').value = user.address || ''
+
+    const usernameLabel = document.getElementById('userUsername')
+    if (usernameLabel) usernameLabel.textContent = user.username ? '@' + user.username : ''
+
+    const emailReadonly = document.getElementById('emailReadonly')
+    if (emailReadonly) emailReadonly.value = user.email || ''
+
+    const roleBadge = document.getElementById('userRoleBadge')
+    if (roleBadge) {
+        const roleLabel = { user: 'Member', admin: 'Admin', super_admin: 'Super Admin' }
+        roleBadge.textContent = roleLabel[user.role] || 'Member'
+    }
+
+    const balanceEl = document.getElementById('userBalance')
+    if (balanceEl) balanceEl.textContent = 'Rp ' + (user.balance || 0).toLocaleString('id-ID')
+
+    const joinedEl = document.getElementById('userJoined')
+    if (joinedEl && user.created_at) {
+        joinedEl.textContent = 'Bergabung sejak ' + new Date(user.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })
+    }
+
+    const avatarEl = document.getElementById('userAvatar')
+    if (avatarEl && user.avatar_url) {
+        avatarEl.innerHTML = `<img src="${user.avatar_url}" alt="Avatar" />`
+    }
+}
+
+async function loadProfileStats(userId) {
+    const result = await getUserStats(userId)
+    if (!result.success) return
+
+    const stats = result.data
+    const totalEl = document.getElementById('statTotalTransactions')
+    const successEl = document.getElementById('statSuccessTransactions')
+    const spentEl = document.getElementById('statTotalSpent')
+    const avgEl = document.getElementById('statAvgTransaction')
+
+    if (totalEl) totalEl.textContent = stats.total_transactions || 0
+    if (successEl) successEl.textContent = stats.total_success || 0
+    if (spentEl) spentEl.textContent = 'Rp ' + Number(stats.total_spent || 0).toLocaleString('id-ID')
+    if (avgEl) avgEl.textContent = 'Rp ' + Math.round(Number(stats.avg_transaction || 0)).toLocaleString('id-ID')
 }
 
 // ===== HISTORY PAGE =====

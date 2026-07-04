@@ -143,16 +143,31 @@ function loadPayments() {
 function updateNavForAuth() {
     const navActions = document.getElementById('navActions')
     const mobileNavActions = document.getElementById('mobileNavActions')
+    const isAdmin = ['admin', 'super_admin'].includes(AppState.user?.role)
+
+    // Admin dapat shortcut langsung ke panel admin di navbar, user biasa
+    // dapat link ke Dashboard. Keduanya dapat link Profil (sebelumnya
+    // nav yang sudah login cuma punya Dashboard + Logout, tidak ada
+    // akses cepat ke halaman Profil).
+    const dashboardLink = isAdmin
+        ? `<a href="admin/index.html" class="btn-outline btn-sm">Admin Panel</a>`
+        : `<a href="dashboard.html" class="btn-outline btn-sm">Dashboard</a>`
+    const dashboardLinkMobile = isAdmin
+        ? `<a href="admin/index.html" class="btn-outline">Admin Panel</a>`
+        : `<a href="dashboard.html" class="btn-outline">Dashboard</a>`
+
     if (navActions) {
         navActions.innerHTML = `
-            <a href="dashboard.html" class="btn-outline btn-sm">Dashboard</a>
+            ${dashboardLink}
+            <a href="profile.html" class="btn-outline btn-sm">Profil</a>
             <a href="#" class="btn-primary btn-sm" id="logoutNav">Logout</a>
         `
         document.getElementById('logoutNav')?.addEventListener('click', handleLogout)
     }
     if (mobileNavActions) {
         mobileNavActions.innerHTML = `
-            <a href="dashboard.html" class="btn-outline">Dashboard</a>
+            ${dashboardLinkMobile}
+            <a href="profile.html" class="btn-outline">Profil</a>
             <a href="#" class="btn-primary" id="logoutMobileNav">Logout</a>
         `
         document.getElementById('logoutMobileNav')?.addEventListener('click', handleLogout)

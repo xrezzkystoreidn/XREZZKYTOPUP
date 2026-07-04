@@ -2,7 +2,19 @@
 // AUTH.JS - XREZZKY TOP UP
 // ============================================================
 
-import { loginUser, registerUser, resetPassword } from '../supabase/auth.js'
+import { loginUser, registerUser, resetPassword, getCurrentUser } from '../supabase/auth.js'
+
+// Arahkan user ke halaman yang sesuai setelah login/daftar:
+// - admin & super_admin -> langsung ke panel admin
+// - user biasa -> langsung ke beranda
+async function redirectAfterAuth() {
+    const result = await getCurrentUser()
+    if (result.success && ['admin', 'super_admin'].includes(result.user?.role)) {
+        window.location.href = 'admin/index.html'
+    } else {
+        window.location.href = 'index.html'
+    }
+}
 
 // ===== LOGIN =====
 document.addEventListener('DOMContentLoaded', () => {
@@ -15,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const result = await loginUser(email, password)
             if (result.success) {
-                window.location.href = 'dashboard.html'
+                await redirectAfterAuth()
             } else {
                 alert('Login gagal: ' + result.error)
             }
@@ -44,8 +56,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const result = await registerUser(email, password, fullname, username)
             if (result.success) {
-                alert('Pendaftaran berhasil! Silakan login.')
-                window.location.href = 'login.html'
+                // Kalau Supabase project butuh verifikasi email, belum ada
+                // session aktif setelah daftar, jadi tetap arahkan ke login.
+                // Kalau session langsung aktif, langsung ke beranda.
+                if (result.data?.session) {
+                    window.location.href = 'index.html'
+                } else {
+                    alert('Pendaftaran berhasil! Silakan cek email untuk verifikasi (jika diperlukan), lalu login.')
+                    window.location.href = 'login.html'
+                }
             } else {
                 alert('Pendaftaran gagal: ' + result.error)
             }

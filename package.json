@@ -6,7 +6,7 @@
   "main": "index.html",
   "scripts": {
     "dev": "vercel dev",
-    "build": "vercel build",
+    "build": "echo 'Skipping build'",
     "deploy": "vercel deploy --prod"
   },
   "dependencies": {

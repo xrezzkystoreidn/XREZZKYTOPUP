@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Games - XREZZKY TOP UP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/responsive.css" />
+    <link rel="stylesheet" href="../css/animation.css" />
+    <style>
+        .admin-sidebar {
+            background: #0b1a33;
+            min-height: 100vh;
+            padding: 24px;
+            color: #cbd5e1;
+            position: sticky;
+            top: 0;
+        }
+        .admin-sidebar .logo {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 32px;
+            display: block;
+        }
+        .admin-sidebar a {
+            display: block;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 4px;
+            transition: 0.2s;
+        }
+        .admin-sidebar a:hover,
+        .admin-sidebar a.active {
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+        }
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 0;
+            min-height: 100vh;
+        }
+        .admin-content {
+            padding: 32px;
+            background: #f8faff;
+        }
+        .admin-table {
+            width: 100%;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        .admin-table th {
+            background: #f8faff;
+            padding: 16px 20px;
+            text-align: left;
+            font-weight: 600;
+            color: #475569;
+            border-bottom: 2px solid #eef2f6;
+        }
+        .admin-table td {
+            padding: 14px 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .admin-table tr:hover td {
+            background: #fafbff;
+        }
+        .admin-actions {
+            display: flex;
+            gap: 8px;
+        }
+        .admin-actions .btn-sm {
+            padding: 4px 12px;
+            font-size: 0.75rem;
+        }
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        @media (max-width: 768px) {
+            .admin-layout {
+                grid-template-columns: 1fr;
+            }
+            .admin-sidebar {
+                min-height: auto;
+                position: relative;
+            }
+            .admin-table {
+                font-size: 0.85rem;
+            }
+            .admin-table th,
+            .admin-table td {
+                padding: 10px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-layout">
+        <div class="admin-sidebar">
+            <a href="index.html" class="logo">XREZZKY ADMIN</a>
+            <a href="dashboard.html">📊 Dashboard</a>
+            <a href="games.html" class="active">🎮 Games</a>
+            <a href="products.html">📦 Products</a>
+            <a href="users.html">👤 Users</a>
+            <a href="transactions.html">📋 Transactions</a>
+            <a href="payments.html">💳 Payments</a>
+            <a href="promos.html">🎁 Promos</a>
+            <a href="banners.html">🖼️ Banners</a>
+            <a href="settings.html">⚙️ Settings</a>
+            <a href="logs.html">📝 Logs</a>
+            <a href="../index.html" style="margin-top:32px; border-top:1px solid #1e2f4a; padding-top:16px;">← Back to Site</a>
+        </div>
+        <div class="admin-content">
+            <div class="admin-header">
+                <div>
+                    <h1>Games</h1>
+                    <p style="color:#64748b;">Kelola daftar game</p>
+                </div>
+                <button class="btn-primary btn-sm" onclick="alert('Fitur tambah game')">+ Tambah Game</button>
+            </div>
+            <div class="admin-table-wrapper">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Icon</th>
+                            <th>Nama</th>
+                            <th>Kategori</th>
+                            <th>Harga</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminGamesBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script type="module">
+        import { supabase } from '../../supabase/config.js'
+        document.addEventListener('DOMContentLoaded', async () => {
+            const { data } = await supabase.from('games').select('*').order('name')
+            const tbody = document.getElementById('adminGamesBody')
+            if (data) {
+                tbody.innerHTML = data.map(g => `
+                    <tr>
+                        <td>${g.icon || '🎮'}</td>
+                        <td><strong>${g.name}</strong></td>
+                        <td>${g.category || '-'}</td>
+                        <td>Rp ${(g.price || 0).toLocaleString()}</td>
+                        <td><span class="status-badge ${g.is_active ? 'success' : 'failed'}">${g.is_active ? 'Aktif' : 'Nonaktif'}</span></td>
+                        <td>
+                            <div class="admin-actions">
+                                <button class="btn-sm btn-outline" onclick="alert('Edit ${g.name}')">Edit</button>
+                                <button class="btn-sm btn-danger" onclick="if(confirm('Hapus ${g.name}?')){alert('Dihapus')}">Hapus</button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('')
+            }
+        })
+    </script>
+</body>
+</html>

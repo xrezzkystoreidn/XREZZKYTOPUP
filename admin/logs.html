@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Logs - XREZZKY TOP UP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/responsive.css" />
+    <link rel="stylesheet" href="../css/animation.css" />
+    <style>
+        .admin-sidebar {
+            background: #0b1a33;
+            min-height: 100vh;
+            padding: 24px;
+            color: #cbd5e1;
+            position: sticky;
+            top: 0;
+        }
+        .admin-sidebar .logo {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 32px;
+            display: block;
+        }
+        .admin-sidebar a {
+            display: block;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 4px;
+            transition: 0.2s;
+        }
+        .admin-sidebar a:hover,
+        .admin-sidebar a.active {
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+        }
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 0;
+            min-height: 100vh;
+        }
+        .admin-content {
+            padding: 32px;
+            background: #f8faff;
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .log-entry {
+            background: white;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+        .log-entry .log-time {
+            color: #94a3b8;
+            font-size: 0.85rem;
+        }
+        .log-entry .log-level {
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .log-level.info { background: #dbeafe; color: #1d4ed8; }
+        .log-level.warning { background: #fef3c7; color: #d97706; }
+        .log-level.error { background: #fee2e2; color: #dc2626; }
+        @media (max-width: 768px) {
+            .admin-layout {
+                grid-template-columns: 1fr;
+            }
+            .admin-sidebar {
+                min-height: auto;
+                position: relative;
+            }
+            .log-entry {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-layout">
+        <div class="admin-sidebar">
+            <a href="index.html" class="logo">XREZZKY ADMIN</a>
+            <a href="dashboard.html">📊 Dashboard</a>
+            <a href="games.html">🎮 Games</a>
+            <a href="products.html">📦 Products</a>
+            <a href="users.html">👤 Users</a>
+            <a href="transactions.html">📋 Transactions</a>
+            <a href="payments.html">💳 Payments</a>
+            <a href="promos.html">🎁 Promos</a>
+            <a href="banners.html">🖼️ Banners</a>
+            <a href="settings.html">⚙️ Settings</a>
+            <a href="logs.html" class="active">📝 Logs</a>
+            <a href="../index.html" style="margin-top:32px; border-top:1px solid #1e2f4a; padding-top:16px;">← Back to Site</a>
+        </div>
+        <div class="admin-content">
+            <div class="admin-header">
+                <div>
+                    <h1>Logs</h1>
+                    <p style="color:#64748b;">Aktivitas sistem</p>
+                </div>
+                <button class="btn-outline btn-sm" onclick="alert('Logs cleared!')">Clear Logs</button>
+            </div>
+            <div style="margin-bottom:16px; display:flex; gap:12px;">
+                <select class="filter-select" style="padding:8px 16px;">
+                    <option>Semua Level</option>
+                    <option>Info</option>
+                    <option>Warning</option>
+                    <option>Error</option>
+                </select>
+                <input type="date" class="search-input" style="max-width:200px;" />
+            </div>
+            <div class="log-entry">
+                <span>User admin login</span>
+                <span class="log-level info">INFO</span>
+                <span class="log-time">01 Jan 2025 10:30</span>
+            </div>
+            <div class="log-entry">
+                <span>Transaksi #ABC123 berhasil</span>
+                <span class="log-level info">INFO</span>
+                <span class="log-time">01 Jan 2025 10:25</span>
+            </div>
+            <div class="log-entry" style="border-left-color:#d97706;">
+                <span>API Digiflazz timeout</span>
+                <span class="log-level warning">WARNING</span>
+                <span class="log-time">01 Jan 2025 09:15</span>
+            </div>
+            <div class="log-entry" style="border-left-color:#dc2626;">
+                <span>Payment failed for user #user123</span>
+                <span class="log-level error">ERROR</span>
+                <span class="log-time">01 Jan 2025 08:45</span>
+            </div>
+            <div class="log-entry">
+                <span>New user registered: john@email.com</span>
+                <span class="log-level info">INFO</span>
+                <span class="log-time">01 Jan 2025 08:00</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

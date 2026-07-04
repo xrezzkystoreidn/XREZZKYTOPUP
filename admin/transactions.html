@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin - XREZZKY TOP UP</title>
+    <title>Admin Transactions - XREZZKY TOP UP</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -47,11 +47,11 @@
             padding: 32px;
             background: #f8faff;
         }
-        .admin-stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 32px;
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
         }
         @media (max-width: 768px) {
             .admin-layout {
@@ -61,14 +61,6 @@
                 min-height: auto;
                 position: relative;
             }
-            .admin-stats {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-        @media (max-width: 480px) {
-            .admin-stats {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
@@ -76,11 +68,11 @@
     <div class="admin-layout">
         <div class="admin-sidebar">
             <a href="index.html" class="logo">XREZZKY ADMIN</a>
-            <a href="dashboard.html" class="active">📊 Dashboard</a>
+            <a href="dashboard.html">📊 Dashboard</a>
             <a href="games.html">🎮 Games</a>
             <a href="products.html">📦 Products</a>
             <a href="users.html">👤 Users</a>
-            <a href="transactions.html">📋 Transactions</a>
+            <a href="transactions.html" class="active">📋 Transactions</a>
             <a href="payments.html">💳 Payments</a>
             <a href="promos.html">🎁 Promos</a>
             <a href="banners.html">🖼️ Banners</a>
@@ -89,27 +81,72 @@
             <a href="../index.html" style="margin-top:32px; border-top:1px solid #1e2f4a; padding-top:16px;">← Back to Site</a>
         </div>
         <div class="admin-content">
-            <h1>Admin Dashboard</h1>
-            <p style="color:#64748b; margin-bottom:32px;">Kelola seluruh data XREZZKY TOP UP</p>
-            <div class="admin-stats" id="adminStats"></div>
-            <div class="dashboard-recent">
-                <h3>Transaksi Terbaru</h3>
-                <table class="recent-table">
+            <div class="admin-header">
+                <div>
+                    <h1>Transactions</h1>
+                    <p style="color:#64748b;">Kelola semua transaksi</p>
+                </div>
+                <div style="display:flex; gap:12px;">
+                    <select class="filter-select" style="padding:8px 16px;">
+                        <option>Semua Status</option>
+                        <option>success</option>
+                        <option>pending</option>
+                        <option>failed</option>
+                    </select>
+                </div>
+            </div>
+            <div class="admin-table-wrapper">
+                <table class="admin-table">
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>User</th>
                             <th>Game</th>
+                            <th>Nominal</th>
                             <th>Total</th>
                             <th>Status</th>
                             <th>Tanggal</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
-                    <tbody id="adminRecentBody"></tbody>
+                    <tbody id="adminTransactionsBody"></tbody>
                 </table>
             </div>
         </div>
     </div>
-    <script src="../env.js"></script>
-    <script type="module" src="../js/admin.js"></script>
+    <script type="module">
+        import { supabase } from '../../supabase/config.js'
+        document.addEventListener('DOMContentLoaded', async () => {
+            const { data } = await supabase
+                .from('transactions')
+                .select(`
+                    *,
+                    users:user_id (full_name, email),
+                    games:game_id (name)
+                `)
+                .order('created_at', { ascending: false })
+                .limit(50)
+
+            const tbody = document.getElementById('adminTransactionsBody')
+            if (data) {
+                tbody.innerHTML = data.map(t => `
+                    <tr>
+                        <td>#${t.id.slice(0, 8)}</td>
+                        <td>${t.users?.full_name || 'User'}</td>
+                        <td>${t.games?.name || 'Game'}</td>
+                        <td>${t.nominal || 0} 💎</td>
+                        <td>Rp ${(t.price || 0).toLocaleString()}</td>
+                        <td><span class="status-badge ${t.status}">${t.status}</span></td>
+                        <td>${new Date(t.created_at).toLocaleDateString('id-ID')}</td>
+                        <td>
+                            <div class="admin-actions">
+                                <button class="btn-sm btn-outline" onclick="alert('Detail #${t.id.slice(0, 8)}')">Detail</button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('')
+            }
+        })
+    </script>
 </body>
 </html>

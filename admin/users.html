@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin - XREZZKY TOP UP</title>
+    <title>Admin Users - XREZZKY TOP UP</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -47,11 +47,11 @@
             padding: 32px;
             background: #f8faff;
         }
-        .admin-stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 32px;
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
         }
         @media (max-width: 768px) {
             .admin-layout {
@@ -61,14 +61,6 @@
                 min-height: auto;
                 position: relative;
             }
-            .admin-stats {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-        @media (max-width: 480px) {
-            .admin-stats {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
@@ -76,10 +68,10 @@
     <div class="admin-layout">
         <div class="admin-sidebar">
             <a href="index.html" class="logo">XREZZKY ADMIN</a>
-            <a href="dashboard.html" class="active">📊 Dashboard</a>
+            <a href="dashboard.html">📊 Dashboard</a>
             <a href="games.html">🎮 Games</a>
             <a href="products.html">📦 Products</a>
-            <a href="users.html">👤 Users</a>
+            <a href="users.html" class="active">👤 Users</a>
             <a href="transactions.html">📋 Transactions</a>
             <a href="payments.html">💳 Payments</a>
             <a href="promos.html">🎁 Promos</a>
@@ -89,27 +81,52 @@
             <a href="../index.html" style="margin-top:32px; border-top:1px solid #1e2f4a; padding-top:16px;">← Back to Site</a>
         </div>
         <div class="admin-content">
-            <h1>Admin Dashboard</h1>
-            <p style="color:#64748b; margin-bottom:32px;">Kelola seluruh data XREZZKY TOP UP</p>
-            <div class="admin-stats" id="adminStats"></div>
-            <div class="dashboard-recent">
-                <h3>Transaksi Terbaru</h3>
-                <table class="recent-table">
+            <div class="admin-header">
+                <div>
+                    <h1>Users</h1>
+                    <p style="color:#64748b;">Kelola data pengguna</p>
+                </div>
+            </div>
+            <div class="admin-table-wrapper">
+                <table class="admin-table">
                     <thead>
                         <tr>
-                            <th>User</th>
-                            <th>Game</th>
-                            <th>Total</th>
-                            <th>Status</th>
-                            <th>Tanggal</th>
+                            <th>Nama</th>
+                            <th>Email</th>
+                            <th>Username</th>
+                            <th>Tanggal Daftar</th>
+                            <th>Role</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
-                    <tbody id="adminRecentBody"></tbody>
+                    <tbody id="adminUsersBody"></tbody>
                 </table>
             </div>
         </div>
     </div>
-    <script src="../env.js"></script>
-    <script type="module" src="../js/admin.js"></script>
+    <script type="module">
+        import { supabase } from '../../supabase/config.js'
+        document.addEventListener('DOMContentLoaded', async () => {
+            const { data } = await supabase.from('users').select('*').order('created_at', { ascending: false })
+            const tbody = document.getElementById('adminUsersBody')
+            if (data) {
+                tbody.innerHTML = data.map(u => `
+                    <tr>
+                        <td><strong>${u.full_name || u.username}</strong></td>
+                        <td>${u.email}</td>
+                        <td>${u.username}</td>
+                        <td>${new Date(u.created_at).toLocaleDateString('id-ID')}</td>
+                        <td><span class="status-badge ${u.role === 'admin' ? 'success' : 'pending'}">${u.role || 'user'}</span></td>
+                        <td>
+                            <div class="admin-actions">
+                                <button class="btn-sm btn-outline" onclick="alert('Edit user')">Edit</button>
+                                <button class="btn-sm btn-danger" onclick="if(confirm('Hapus user?')){alert('Dihapus')}">Hapus</button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('')
+            }
+        })
+    </script>
 </body>
 </html>

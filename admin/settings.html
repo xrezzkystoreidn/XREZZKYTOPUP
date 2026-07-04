@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Settings - XREZZKY TOP UP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/responsive.css" />
+    <link rel="stylesheet" href="../css/animation.css" />
+    <style>
+        .admin-sidebar {
+            background: #0b1a33;
+            min-height: 100vh;
+            padding: 24px;
+            color: #cbd5e1;
+            position: sticky;
+            top: 0;
+        }
+        .admin-sidebar .logo {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 32px;
+            display: block;
+        }
+        .admin-sidebar a {
+            display: block;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 4px;
+            transition: 0.2s;
+        }
+        .admin-sidebar a:hover,
+        .admin-sidebar a.active {
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+        }
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 0;
+            min-height: 100vh;
+        }
+        .admin-content {
+            padding: 32px;
+            background: #f8faff;
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .settings-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .settings-card {
+            background: white;
+            padding: 24px;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-sm);
+        }
+        .settings-card h3 {
+            margin-bottom: 16px;
+            color: var(--primary-deep);
+        }
+        @media (max-width: 768px) {
+            .admin-layout {
+                grid-template-columns: 1fr;
+            }
+            .admin-sidebar {
+                min-height: auto;
+                position: relative;
+            }
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-layout">
+        <div class="admin-sidebar">
+            <a href="index.html" class="logo">XREZZKY ADMIN</a>
+            <a href="dashboard.html">📊 Dashboard</a>
+            <a href="games.html">🎮 Games</a>
+            <a href="products.html">📦 Products</a>
+            <a href="users.html">👤 Users</a>
+            <a href="transactions.html">📋 Transactions</a>
+            <a href="payments.html">💳 Payments</a>
+            <a href="promos.html">🎁 Promos</a>
+            <a href="banners.html">🖼️ Banners</a>
+            <a href="settings.html" class="active">⚙️ Settings</a>
+            <a href="logs.html">📝 Logs</a>
+            <a href="../index.html" style="margin-top:32px; border-top:1px solid #1e2f4a; padding-top:16px;">← Back to Site</a>
+        </div>
+        <div class="admin-content">
+            <div class="admin-header">
+                <div>
+                    <h1>Settings</h1>
+                    <p style="color:#64748b;">Pengaturan website</p>
+                </div>
+                <button class="btn-primary btn-sm" onclick="alert('Settings saved!')">Simpan Semua</button>
+            </div>
+            <div class="settings-grid">
+                <div class="settings-card">
+                    <h3>General Settings</h3>
+                    <div class="form-group">
+                        <label>Nama Website</label>
+                        <input type="text" value="XREZZKY TOP UP" />
+                    </div>
+                    <div class="form-group">
+                        <label>Tagline</label>
+                        <input type="text" value="Top Up Game Cepat, Aman & Terpercaya" />
+                    </div>
+                    <div class="form-group">
+                        <label>Email Support</label>
+                        <input type="email" value="cs@xrezzy.com" />
+                    </div>
+                </div>
+                <div class="settings-card">
+                    <h3>Payment Settings</h3>
+                    <div class="form-group">
+                        <label>Minimum Deposit</label>
+                        <input type="number" value="10000" />
+                    </div>
+                    <div class="form-group">
+                        <label>Maximum Deposit</label>
+                        <input type="number" value="10000000" />
+                    </div>
+                    <div class="form-group">
+                        <label>Admin Fee (%)</label>
+                        <input type="number" value="0" />
+                    </div>
+                </div>
+                <div class="settings-card">
+                    <h3>Digiflazz Settings</h3>
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" value="xxxxxxxx" />
+                    </div>
+                    <div class="form-group">
+                        <label>API Key</label>
+                        <input type="password" value="xxxxxxxxxxxxxxxx" />
+                    </div>
+                </div>
+                <div class="settings-card">
+                    <h3>Security</h3>
+                    <div class="form-group">
+                        <label>Maintenance Mode</label>
+                        <select>
+                            <option>Off</option>
+                            <option>On</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Force SSL</label>
+                        <select>
+                            <option>Enabled</option>
+                            <option>Disabled</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

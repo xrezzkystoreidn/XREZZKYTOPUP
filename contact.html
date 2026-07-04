@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kontak - XREZZKY TOP UP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="css/animation.css" />
+</head>
+<body>
+    <nav>
+        <div class="container nav-wrapper">
+            <a href="index.html" class="logo">XREZZKY <span>TOP UP</span></a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="games.html">Games</a></li>
+                <li><a href="promo.html">Promo</a></li>
+                <li><a href="faq.html">Bantuan</a></li>
+                <li><a href="history.html">Riwayat</a></li>
+            </ul>
+            <div class="nav-actions" id="navActions">
+                <a href="login.html" class="btn-outline btn-sm">Masuk</a>
+                <a href="register.html" class="btn-primary btn-sm">Daftar</a>
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div class="container mobile-menu" id="mobileMenu">
+            <a href="index.html">Home</a>
+            <a href="games.html">Games</a>
+            <a href="promo.html">Promo</a>
+            <a href="faq.html">Bantuan</a>
+            <a href="history.html">Riwayat</a>
+            <div class="nav-actions" id="mobileNavActions">
+                <a href="login.html" class="btn-outline">Masuk</a>
+                <a href="register.html" class="btn-primary">Daftar</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section-padding">
+        <div class="container">
+            <div class="text-center">
+                <span class="badge-glow">📞 Kontak</span>
+                <h2 class="section-title">Hubungi Kami</h2>
+                <p class="section-sub">Kami siap membantu Anda 24 jam setiap hari</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div><h4>Alamat</h4><p>Jl. Teknologi No. 123, Jakarta Selatan</p></div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div><h4>Email</h4><p>cs@xrezzy.com</p><p>support@xrezzy.com</p></div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div><h4>Telepon</h4><p>+62 812 3456 7890</p><p>+62 811 1234 5678</p></div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🕒</div>
+                        <div><h4>Jam Operasional</h4><p>24 Jam / 7 Hari</p></div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>Kirim Pesan</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label>Nama Lengkap</label>
+                            <input type="text" id="contactName" placeholder="Nama Anda" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="contactEmail" placeholder="Email Anda" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Subjek</label>
+                            <input type="text" id="contactSubject" placeholder="Subjek pesan" />
+                        </div>
+                        <div class="form-group">
+                            <label>Pesan</label>
+                            <textarea rows="5" id="contactMessage" placeholder="Tulis pesan Anda" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary btn-full">Kirim Pesan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-grid">
+            <div>
+                <div class="footer-logo">XREZZKY TOP UP</div>
+                <p style="margin-top:8px;">Top up game cepat, aman & terpercaya.</p>
+            </div>
+            <div>
+                <h5>Menu</h5>
+                <a href="index.html">Home</a>
+                <a href="games.html">Games</a>
+                <a href="promo.html">Promo</a>
+                <a href="faq.html">Bantuan</a>
+            </div>
+            <div>
+                <h5>Kontak</h5>
+                <a>📧 cs@xrezzy.com</a>
+                <a>📞 +62 812 3456 7890</a>
+            </div>
+            <div>
+                <h5>Media Sosial</h5>
+                <a href="#">Instagram</a>
+                <a href="#">YouTube</a>
+            </div>
+        </div>
+        <div class="container copyright">© 2025 XREZZKY TOP UP. All rights reserved.</div>
+    </footer>
+
+    <script src="env.js"></script>
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

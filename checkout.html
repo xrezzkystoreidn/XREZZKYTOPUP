@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout - XREZZKY TOP UP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="css/animation.css" />
+</head>
+<body>
+    <nav>
+        <div class="container nav-wrapper">
+            <a href="index.html" class="logo">XREZZKY <span>TOP UP</span></a>
+            <div class="nav-actions" id="navActions">
+                <a href="login.html" class="btn-outline btn-sm">Masuk</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section-padding">
+        <div class="container checkout-container">
+            <div class="checkout-grid">
+                <div class="checkout-summary">
+                    <h3>Ringkasan Pesanan</h3>
+                    <div class="checkout-item" id="checkoutItem"></div>
+                    <div class="checkout-total">
+                        <span>Total</span>
+                        <span class="total-price" id="totalPrice">Rp 0</span>
+                    </div>
+                </div>
+                <div class="checkout-payment">
+                    <h3>Metode Pembayaran</h3>
+                    <div class="payment-methods" id="paymentMethods"></div>
+                    <button class="btn-primary btn-full" id="payBtn">Bayar Sekarang</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="margin-top: 0; border-radius: 0;">
+        <div class="container copyright">© 2025 XREZZKY TOP UP. All rights reserved.</div>
+    </footer>
+
+    <script src="env.js"></script>
+    <script type="module" src="js/checkout.js"></script>
+</body>
+</html>

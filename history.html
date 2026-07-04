@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Riwayat - XREZZKY TOP UP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="css/animation.css" />
+</head>
+<body>
+    <nav>
+        <div class="container nav-wrapper">
+            <a href="index.html" class="logo">XREZZKY <span>TOP UP</span></a>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="history.html" class="active">Riwayat</a></li>
+                <li><a href="profile.html">Profil</a></li>
+                <li><a href="games.html">Games</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="#" class="btn-outline btn-sm" id="logoutBtn">Logout</a>
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div class="container mobile-menu" id="mobileMenu">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="history.html">Riwayat</a>
+            <a href="profile.html">Profil</a>
+            <a href="games.html">Games</a>
+            <a href="#" id="logoutBtnMobile">Logout</a>
+        </div>
+    </nav>
+
+    <section class="section-padding">
+        <div class="container">
+            <h2 class="section-title">Riwayat Transaksi</h2>
+            <div class="history-filter">
+                <select id="filterGame"><option value="">Semua Game</option></select>
+                <select id="filterStatus"><option value="">Semua Status</option><option value="success">Berhasil</option><option value="pending">Proses</option><option value="failed">Gagal</option></select>
+            </div>
+            <div class="history-list" id="historyList"></div>
+            <div class="pagination" id="pagination">
+                <button class="btn-outline btn-sm" id="prevPage">Prev</button>
+                <span id="pageInfo">Halaman 1 dari 1</span>
+                <button class="btn-outline btn-sm" id="nextPage">Next</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-grid">
+            <div>
+                <div class="footer-logo">XREZZKY TOP UP</div>
+                <p style="margin-top:8px;">Top up game cepat, aman & terpercaya.</p>
+            </div>
+            <div>
+                <h5>Menu</h5>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="history.html">Riwayat</a>
+                <a href="profile.html">Profil</a>
+            </div>
+            <div>
+                <h5>Kontak</h5>
+                <a>📧 cs@xrezzy.com</a>
+                <a>📞 +62 812 3456 7890</a>
+            </div>
+            <div>
+                <h5>Media Sosial</h5>
+                <a href="#">Instagram</a>
+                <a href="#">YouTube</a>
+            </div>
+        </div>
+        <div class="container copyright">© 2025 XREZZKY TOP UP. All rights reserved.</div>
+    </footer>
+
+    <script src="env.js"></script>
+    <script type="module" src="js/dashboard.js"></script>
+</body>
+</html>

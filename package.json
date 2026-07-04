@@ -1,0 +1,21 @@
+{
+  "name": "xrezzy-topup",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "XREZZKY TOP UP - Platform Top Up Game",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "vercel build",
+    "deploy": "vercel deploy --prod"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0"
+  },
+  "devDependencies": {
+    "vercel": "^34.0.0"
+  },
+  "keywords": ["topup", "game", "digiflazz", "supabase"],
+  "author": "XREZZKY",
+  "license": "MIT"
+}

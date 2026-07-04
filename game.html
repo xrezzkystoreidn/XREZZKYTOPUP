@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detail Game - XREZZKY TOP UP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="css/animation.css" />
+</head>
+<body>
+    <nav>
+        <div class="container nav-wrapper">
+            <a href="index.html" class="logo">XREZZKY <span>TOP UP</span></a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="games.html" class="active">Games</a></li>
+                <li><a href="promo.html">Promo</a></li>
+                <li><a href="faq.html">Bantuan</a></li>
+                <li><a href="history.html">Riwayat</a></li>
+            </ul>
+            <div class="nav-actions" id="navActions">
+                <a href="login.html" class="btn-outline btn-sm">Masuk</a>
+                <a href="register.html" class="btn-primary btn-sm">Daftar</a>
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div class="container mobile-menu" id="mobileMenu">
+            <a href="index.html">Home</a>
+            <a href="games.html">Games</a>
+            <a href="promo.html">Promo</a>
+            <a href="faq.html">Bantuan</a>
+            <a href="history.html">Riwayat</a>
+            <div class="nav-actions" id="mobileNavActions">
+                <a href="login.html" class="btn-outline">Masuk</a>
+                <a href="register.html" class="btn-primary">Daftar</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section-padding">
+        <div class="container">
+            <div class="game-detail-grid" id="gameDetail">
+                <div class="game-detail-info">
+                    <div class="game-detail-icon" id="gameIcon">⚔️</div>
+                    <h1 id="gameName">Mobile Legends</h1>
+                    <div class="game-detail-meta" id="gameMeta"></div>
+                    <p class="game-detail-desc" id="gameDesc"></p>
+                    <div class="game-detail-stats" id="gameStats"></div>
+                </div>
+                <div class="game-detail-form">
+                    <h3>Top Up</h3>
+                    <form id="topupForm">
+                        <div class="form-group">
+                            <label>Pilih Nominal</label>
+                            <div class="nominal-grid" id="nominalGrid"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>ID Player</label>
+                            <input type="text" id="playerId" placeholder="Masukkan ID Player" required />
+                            <small>Contoh: 123456789</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Server</label>
+                            <input type="text" id="serverId" placeholder="Masukkan Server" required />
+                            <small>Contoh: 1234</small>
+                        </div>
+                        <button type="submit" class="btn-primary btn-full" id="topupBtn">Top Up Sekarang →</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-grid">
+            <div>
+                <div class="footer-logo">XREZZKY TOP UP</div>
+                <p style="margin-top:8px;">Top up game cepat, aman & terpercaya.</p>
+            </div>
+            <div>
+                <h5>Menu</h5>
+                <a href="index.html">Home</a>
+                <a href="games.html">Games</a>
+                <a href="promo.html">Promo</a>
+                <a href="faq.html">Bantuan</a>
+            </div>
+            <div>
+                <h5>Kontak</h5>
+                <a>📧 cs@xrezzy.com</a>
+                <a>📞 +62 812 3456 7890</a>
+            </div>
+            <div>
+                <h5>Media Sosial</h5>
+                <a href="#">Instagram</a>
+                <a href="#">YouTube</a>
+            </div>
+        </div>
+        <div class="container copyright">© 2025 XREZZKY TOP UP. All rights reserved.</div>
+    </footer>
+
+    <script src="env.js"></script>
+    <script type="module" src="js/games.js"></script>
+</body>
+</html>

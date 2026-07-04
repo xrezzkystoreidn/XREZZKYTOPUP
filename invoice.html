@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invoice - XREZZKY TOP UP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="css/animation.css" />
+</head>
+<body>
+    <nav>
+        <div class="container nav-wrapper">
+            <a href="index.html" class="logo">XREZZKY <span>TOP UP</span></a>
+        </div>
+    </nav>
+
+    <section class="section-padding">
+        <div class="container payment-status-container">
+            <div class="payment-status-card" id="invoiceCard">
+                <div class="payment-status-icon">📄</div>
+                <h2>Invoice</h2>
+                <div class="payment-status-detail" id="invoiceDetail"></div>
+                <div class="payment-actions">
+                    <button class="btn-primary" onclick="window.print()">Cetak Invoice</button>
+                    <a href="dashboard.html" class="btn-outline">Ke Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="margin-top: 0; border-radius: 0;">
+        <div class="container copyright">© 2025 XREZZKY TOP UP. All rights reserved.</div>
+    </footer>
+
+    <script src="env.js"></script>
+    <script type="module" src="js/payment.js"></script>
+</body>
+</html>

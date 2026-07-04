@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profil - XREZZKY TOP UP</title>
+    <title>Profil Saya - XREZZKY TOP UP</title>
+    <meta name="description" content="Kelola profil, saldo, dan keamanan akun XREZZKY TOP UP kamu." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -38,32 +39,121 @@
     </nav>
 
     <section class="section-padding">
-        <div class="container profile-container">
-            <div class="profile-card">
-                <div class="profile-avatar">
-                    <div class="avatar" id="userAvatar">👤</div>
-                    <h2 id="userName">User Name</h2>
-                    <p id="userEmail">user@email.com</p>
+        <div class="container">
+
+            <!-- ===== PROFILE HERO ===== -->
+            <div class="profile-hero">
+                <div class="profile-avatar-wrap">
+                    <div class="profile-avatar" id="userAvatar">👤</div>
+                    <label class="avatar-upload-btn" title="Ganti foto profil">
+                        📷
+                        <input type="file" id="avatarInput" accept="image/*" hidden />
+                    </label>
                 </div>
-                <form class="profile-form" id="profileForm">
-                    <div class="form-group">
-                        <label>Nama Lengkap</label>
-                        <input type="text" id="fullname" required />
+                <div class="profile-hero-info">
+                    <div class="profile-name-row">
+                        <h1 id="userName">User Name</h1>
+                        <span class="badge-glow" id="userRoleBadge">Member</span>
                     </div>
-                    <div class="form-group">
-                        <label>Username</label>
-                        <input type="text" id="username" required />
+                    <p class="profile-username" id="userUsername">@username</p>
+                    <p class="profile-email" id="userEmail">user@email.com</p>
+                    <p class="profile-joined" id="userJoined">Bergabung sejak -</p>
+                </div>
+                <div class="profile-balance-card">
+                    <div class="profile-balance-label">Saldo Akun</div>
+                    <div class="profile-balance-amount" id="userBalance">Rp 0</div>
+                    <a href="dashboard.html" class="btn-primary btn-sm">Top Up Saldo</a>
+                </div>
+            </div>
+
+            <!-- ===== STATS ===== -->
+            <div class="dashboard-stats profile-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div>
+                        <div class="stat-number" id="statTotalTransactions">0</div>
+                        <div class="stat-label">Total Transaksi</div>
                     </div>
-                    <div class="form-group">
-                        <label>Nomor HP</label>
-                        <input type="tel" id="phone" />
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div>
+                        <div class="stat-number" id="statSuccessTransactions">0</div>
+                        <div class="stat-label">Transaksi Berhasil</div>
                     </div>
-                    <div class="form-group">
-                        <label>Alamat</label>
-                        <textarea rows="3" id="address"></textarea>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💸</div>
+                    <div>
+                        <div class="stat-number" id="statTotalSpent">Rp 0</div>
+                        <div class="stat-label">Total Pengeluaran</div>
                     </div>
-                    <button type="submit" class="btn-primary">Simpan Perubahan</button>
-                </form>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📈</div>
+                    <div>
+                        <div class="stat-number" id="statAvgTransaction">Rp 0</div>
+                        <div class="stat-label">Rata-rata Transaksi</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== EDIT PROFILE + SECURITY ===== -->
+            <div class="profile-grid">
+
+                <div class="profile-section">
+                    <h3>📝 Edit Profil</h3>
+                    <p class="profile-section-sub">Perbarui data diri kamu di sini.</p>
+                    <form class="profile-form" id="profileForm">
+                        <div class="form-group">
+                            <label>Nama Lengkap</label>
+                            <input type="text" id="fullname" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" id="username" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="emailReadonly" disabled />
+                            <small>Email tidak bisa diubah di sini. Hubungi CS jika perlu.</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Nomor HP</label>
+                            <input type="tel" id="phone" placeholder="08xxxxxxxxxx" />
+                        </div>
+                        <div class="form-group">
+                            <label>Alamat</label>
+                            <textarea rows="3" id="address" placeholder="Alamat lengkap (opsional)"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Simpan Perubahan</button>
+                        <span class="form-msg" id="profileMsg"></span>
+                    </form>
+                </div>
+
+                <div class="profile-section">
+                    <h3>🔒 Keamanan Akun</h3>
+                    <p class="profile-section-sub">Ganti password secara berkala untuk keamanan akun kamu.</p>
+                    <form class="profile-form" id="passwordForm">
+                        <div class="form-group">
+                            <label>Password Baru</label>
+                            <input type="password" id="newPassword" minlength="6" required placeholder="Minimal 6 karakter" />
+                        </div>
+                        <div class="form-group">
+                            <label>Konfirmasi Password Baru</label>
+                            <input type="password" id="confirmPassword" minlength="6" required />
+                        </div>
+                        <button type="submit" class="btn-primary">Update Password</button>
+                        <span class="form-msg" id="passwordMsg"></span>
+                    </form>
+
+                    <div class="profile-danger">
+                        <h4>Sesi Akun</h4>
+                        <p>Keluar dari akun kamu di perangkat ini.</p>
+                        <a href="#" class="btn-outline" id="logoutBtnProfile">Logout</a>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>

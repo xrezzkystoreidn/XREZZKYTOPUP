@@ -6,7 +6,7 @@
   "main": "index.html",
   "scripts": {
     "dev": "vercel dev",
-    "build": "exit 0",
+    "build": "vercel build",
     "deploy": "vercel deploy --prod"
   },
   "dependencies": {
@@ -15,12 +15,7 @@
   "devDependencies": {
     "vercel": "^34.0.0"
   },
-  "keywords": [
-    "topup",
-    "game",
-    "digiflazz",
-    "supabase"
-  ],
+  "keywords": ["topup", "game", "digiflazz", "supabase"],
   "author": "XREZZKY",
   "license": "MIT"
 }

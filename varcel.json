@@ -10,6 +10,16 @@
     "DIGIFLAZZ_USERNAME": "@digiflazz_username",
     "DIGIFLAZZ_API_KEY": "@digiflazz_api_key"
   },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/admin/(.*)",
+      "destination": "/admin/index.html"
+    }
+  ],
   "headers": [
     {
       "source": "/api/(.*)",
